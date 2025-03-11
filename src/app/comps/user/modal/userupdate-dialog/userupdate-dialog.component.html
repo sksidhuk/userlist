@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>User Details</h2>
+<mat-dialog-content>
+    <form [formGroup]="modalForm">
+        <label for="name">Name: </label>
+        <input id="name" type="text" formControlName="user_name"><br>
+        <label for="email">Email: </label>
+        <input id="email" type="email" formControlName="user_email"><br>
+        <label for="name">Name: </label>
+        <input id="phone" type="number" formControlName="user_phone"><br>
+        <label for="message">Message: </label>
+        <input id="message" type="text" formControlName="user_message"><br>
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="start">
+    <button (click)="updateDialog()">Update</button>
+</mat-dialog-actions>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>
