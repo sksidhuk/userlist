@@ -29,7 +29,6 @@ export class UserupdateDialogComponent implements OnInit {
       user_name: new FormControl(this.data.name),
       user_email: new FormControl(this.data.email),
       user_phone: new FormControl(this.data.phone),
-      user_message: new FormControl(this.data.message)
     })
   }
 

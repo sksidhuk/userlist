@@ -13,8 +13,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private uService: UserService) { }
 
-  errors = "";
-  success = "";
+  loginMessage = "";
 
   ngOnInit() {
 
@@ -28,24 +27,37 @@ export class LoginComponent implements OnInit {
   loginUser() {
 
     let userLoginData = this.loginForm.value;
-
-    if (userLoginData.u_email !== '' && userLoginData.u_email !== '') {
-      this.uService.authLogin(userLoginData)
-        .subscribe((res: any) => {
-          console.log("Login successful", res);
-          this.success = "Congratulations!!!! Login Successful";
-        },
-          (error: any) => {
-            this.errors = "Email and password are incorrect, Please try again!";
-            console.error("Login Failed", error);
-          });
+    if (userLoginData.u_email === '' && userLoginData.u_email === '') {
+      this.loginMessage = "Email and password are required";
 
     }
 
     else {
-      this.errors = "Email and password are required for login";
-    }
+      this.uService.authLogin(userLoginData)
+        .subscribe((res: any) => {
+          //console.log("Login successful", res);
+          this.loginMessage = "Congratulations!!!! Login Successful";
 
+          if (typeof window !== 'undefined' && userLoginData?.u_email) {
+            try {
+              localStorage.setItem("loginStatus", "true");
+              localStorage.setItem("u_email", userLoginData.u_email);
+
+            } catch (error) {
+              console.error("LocalStorage error:", error);
+            }
+
+          }
+          else {
+            console.warn("Cannot store data, try again!");
+
+          }
+
+        },
+          (error: any) => {
+            this.loginMessage = "Invaid Credentials! Please try again";
+          });
+    }
   }
 
 

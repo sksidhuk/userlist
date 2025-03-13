@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { UserService } from '../../../service/user.service';
 
 @Component({
-  selector: 'app-add',
+  selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule, MatTableModule, MatPaginator],
   templateUrl: './add.component.html',
@@ -14,7 +14,7 @@ import { UserService } from '../../../service/user.service';
 
 
 
-export class AddComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   userList: any[] = [];
   dataSource = new MatTableDataSource(this.userList);
@@ -28,18 +28,16 @@ export class AddComponent implements OnInit {
     u_name: new FormControl('', Validators.required),
     u_email: new FormControl('', Validators.required),
     u_phone: new FormControl('', Validators.required),
-    u_message: new FormControl('', Validators.required),
     u_password: new FormControl('', Validators.required),
     u_cpassword: new FormControl('', Validators.required)
   });
 
-  displayedColumns: string[] = ['name', 'email', 'phone', 'message'];
 
 
   //Save User Data
   submitForm(): void {
     let val = this.userForm.value;
-
+    console.log(val);
     if (this.userForm.valid) {
 
       //Table Data Display

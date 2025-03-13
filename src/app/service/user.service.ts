@@ -9,12 +9,12 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  private apiUrl = 'http://localhost:3000/contact';
+  private apiUrl = 'http://localhost:3002/contact';
 
-  private saveUrl = "http://localhost:3000/contactsave";
+  private saveUrl = "http://localhost:3002/contactsave";
 
-  private loginAuth = 'http://localhost:3000/login';
-
+  private loginAuth = 'http://localhost:3002/login';
+  private dashboardUrl = "http://localhost:3002/dashboard";
 
 
   //User List show
@@ -35,23 +35,29 @@ export class UserService {
 
   //Update user Data User List  component
   updateUserData(upDataeddata: any): Observable<any> {
-    const updateUrl = `http://localhost:3000/contactupdate/${upDataeddata.id}`;
-    console.log("Updated ID", upDataeddata.id);
+    const updateUrl = `http://localhost:3002/contactupdate/${upDataeddata.id}`;
+
     return this.http.put(updateUrl, upDataeddata);
   }
 
-  //Update user Data User List  component
+  //Update user Data User List  component from Modal
   updateUser(upDataeddata: any, id: any): Observable<any> {
-    const updateUrl = `http://localhost:3000/contactupdate/${id}`;
+    const updateUrl = `http://localhost:3002/contactupdate/${id}`;
     return this.http.put(updateUrl, upDataeddata);
   }
 
 
-  //Localstorage get item
-  getUserData(): any {
-    const userData = localStorage.getItem("fname");
+  //Localstorage get item for User Dashboard Page
+  getUserData(u_email: any): Observable<any> {
+    console.log("Service email:", u_email);
+    return this.http.post<any>(this.dashboardUrl, u_email);
   }
 
+
+  // logoutUser() {
+  //   const loginKey = localStorage.getItem('loginKey');
+  //   console.log(loginKey);
+  // }
 
 
 
